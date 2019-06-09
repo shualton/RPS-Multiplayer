@@ -352,6 +352,33 @@ $(document).ready(function() {
     }
 
 
-   
+    //Chat feature
+    $('#chat').on('click', function() {
+
+        var message = {
+
+            name: nameField.val(),
+            message: messageField.val()
+        };
+
+        chatRef.push(message);
+        messageField.val('');
+
+    });
+
+    chatRef.limitToLast(5).on('child_added', function(snapshot) {
+
+        var data = snapshot.val();
+        var name = data.name || 'nameless rando';
+        var message = data.message;
+
+        var messageElement = $('<li>');
+        var nameElement = $('<span></span>');
+        nameElement.html(name + ": ");
+        messageElement.html(message).prepend(nameElement);
+
+        chatLog.append(messageElement);
+    });
+    //End Chat Feature
 
 });
