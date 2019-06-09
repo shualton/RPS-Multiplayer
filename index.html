@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>RPS-Multiplayer</title>
+  <!-- My Favicon -->
+  <link rel='shortcut icon' href='favicon.ico' type='image/x-icon' />
+  <!-- My Style Sheet -->
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- Bootstrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Bootswatch Theme CDN -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css" rel="stylesheet" integrity="sha384-Xqcy5ttufkC3rBa8EdiAyA1VgOGrmel2Y+wxm4K3kI3fcjTWlDWrlnxyD6hOi3PF" crossorigin="anonymous">
+  <!-- Animate.css CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Reem+Kufi" rel="stylesheet">
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-messaging.js"></script>
+  <!-- jQuery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="jumbotron text-center noselect">
+      <h1 id="title">Rock Paper Scissors</h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4 text-center noselect" id="status">
+        <div class="input-group">
+          <input type="text" class="form-control" id="username" placeholder="Name">
+          <span class="input-group-btn">
+        <button class="btn btn-primary" id="start" type="submit">START</button>
+      </span>
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 box turn" id="box-1">
+        <div class="text-center noselect" id="player-1">
+          <h4>Waiting For Player 1</h4>
+        </div>
+        <div class="text-center noselect" id="player-1-choice">
+          <button class="choice-1 btn btn-primary" data-choice="rock">Rock</button>
+          <button class="choice-1 btn btn-primary" data-choice="paper">Paper</button>
+          <button class="choice-1 btn btn-primary" data-choice="scissors">Scissors</button>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 text-center box" id="game-results"></div>
+      <div class="col-xs-12 col-sm-4 box" id="box-2">
+        <div class="text-center noselect" id="player-2">
+          <h4>Waiting For Player 2</h4>
+        </div>
+        <div class="text-center noselect" id="player-2-choice">
+          <button class="choice-2 btn btn-primary" data-choice="rock">Rock</button>
+          <button class="choice-2 btn btn-primary" data-choice="paper">Paper</button>
+          <button class="choice-2 btn btn-primary" data-choice="scissors">Scissors</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <ul id="chat-log"></ul>
+        <div class="input-group">
+          <input type="text" class="form-control" id="message" placeholder="Text to Chat">
+          <span class="input-group-btn">
+        <button class="btn btn-success" id="chat" type="submit">SEND</button>
+      </span>
+        </div>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+  <script src="assets/javascript/script.js"></script>
+</body>
+
+</html>
