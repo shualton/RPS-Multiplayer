@@ -1,0 +1,70 @@
+body {
+    font-family: 'Reem Kufi', sans-serif;
+  }
+  
+  #title {
+    font-family: 'Reem Kufi', sans-serif;
+  }
+  
+  #game-results,
+  #box-1,
+  #box-2 {
+    min-height: 250px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    color: black;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+  }
+  
+  #player-1,
+  #player-2 {
+    min-height: 150px;
+  }
+  
+  #box-1 {
+    background-image: url('../images/rock.jpg');
+  }
+  
+  #game-results {
+    background-image: url('../images/paper.jpg');
+  }
+  
+  #box-2 {
+    background-image: url('../images/scissors.jpg');
+  }
+  
+  #chat-log {
+    height: auto;
+    border: 1px solid #ccc;
+    margin: 20px 0 5px 0;
+  }
+  
+  .turn {
+    border: 3px solid green;
+  }
+  
+  li {
+    list-style-type: none;
+  }
+  
+  
+  /*Makes certain parts of the page unable to be highlighted.*/
+  
+  .noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    -khtml-user-select: none;
+    /* Konqueror */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                    not supported by any browser */
+  }
+  
