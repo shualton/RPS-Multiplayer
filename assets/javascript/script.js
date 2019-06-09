@@ -214,4 +214,144 @@ $(document).ready(function() {
         })
     };
 
-    
+    function resetChoice() {
+
+        var choice = "";
+        var dbChoice = database.ref('players/' + currentPlayer + '/choice');
+        var otherDbChoice = database.ref('players/' + otherPlayer + '/choice');
+        dbChoice.set(choice);
+        otherDbChoice.set(choice);
+        $('#game-results').html('<h4 id="results"></h4>');
+
+    }
+
+    function makeChoices() {
+
+        var choice = $(this).attr('data-choice');
+
+        var dbChoice = database.ref('players/' + currentPlayer + '/choice');
+        dbChoice.set(choice);
+
+        database.ref('players/' + otherPlayer + '/choice').on('value', function(snapshot) {
+            compareChoices();
+        });
+
+        //Hide the buttons
+
+        $('.choice-1').hide();
+        $('.choice-2').hide();
+
+        var dbturn = database.ref('turn');
+        dbturn.once('value', function(snapshot) {
+            var currentTurn = snapshot.val();
+
+            if (currentTurn === 1) {
+                database.ref('turn').set(2);
+            } else {
+                database.ref('turn').set(1);
+            }
+        });
+    }
+
+    $('.choice-1').on('click', makeChoices);
+    $('.choice-2').on('click', makeChoices);
+
+    function compareChoices() {
+
+        database.ref().once("value", function(snapshot) {
+
+            var playerName = snapshot.child('players/' + currentPlayer + '/name').val();
+            var playerChoice = snapshot.child('players/' + currentPlayer + '/choice').val();
+            var playerWins = snapshot.child('players/' + currentPlayer + '/wins').val();
+            var playerLosses = snapshot.child('players/' + currentPlayer + '/losses').val();
+            var otherName = snapshot.child('players/' + otherPlayer + '/name').val();
+            var otherPlayerChoice = snapshot.child('players/' + otherPlayer + '/choice').val();
+            var otherPlayerWins = snapshot.child('players/' + otherPlayer + '/wins').val();
+            var otherPlayerLosses = snapshot.child('players/' + otherPlayer + '/losses').val();
+
+            var gameResults = snapshot.child
+
+
+            if (playerChoice === "paper") {
+                if (otherPlayerChoice === "scissors") {
+                    otherPlayerWins++;
+                    playerLosses++;
+                    database.ref('players/' + currentPlayer + '/losses').set(playerLosses);
+                    database.ref('players/' + otherPlayer + '/wins').set(otherPlayerWins);
+                    gameResults = otherName + ' wins!';
+                    gameResultsRef.update({ gameResults: gameResults });
+                    setTimeout(resetChoice, 2500);
+                } else if (otherPlayerChoice === "rock") {
+                    playerWins++;
+                    otherPlayerLosses++;
+                    database.ref('players/' + currentPlayer + '/wins').set(playerWins);
+                    database.ref('players/' + otherPlayer + '/losses').set(otherPlayerLosses);
+                    gameResults = playerName + ' wins!';
+                    gameResultsRef.update({ gameResults: gameResults });
+                    setTimeout(resetChoice, 2500);
+                } else if (otherPlayerChoice === "paper") {
+                    gameResults = 'It\'s a tie!';
+                    gameResultsRef.update({ gameResults: gameResults });
+                    setTimeout(resetChoice, 2500);
+                }
+
+
+            } else if (playerChoice === "rock") {
+                if (otherPlayerChoice === "paper") {
+                    otherPlayerWins++;
+                    playerLosses++;
+                    database.ref('players/' + currentPlayer + '/losses').set(playerLosses);
+                    database.ref('players/' + otherPlayer + '/wins').set(otherPlayerWins);
+                    gameResults = otherName + ' wins!';
+                    gameResultsRef.update({ gameResults: gameResults });
+
+                    setTimeout(resetChoice, 2500);
+                } else if (otherPlayerChoice === "scissors") {
+                    playerWins++;
+                    otherPlayerLosses++;
+                    database.ref('players/' + currentPlayer + '/wins').set(playerWins);
+                    database.ref('players/' + otherPlayer + '/losses').set(otherPlayerLosses);
+                    gameResults = playerName + ' wins!';
+                    gameResultsRef.update({ gameResults: gameResults });
+
+                    setTimeout(resetChoice, 2500);
+                } else if (otherPlayerChoice === "rock") {
+                    gameResults = 'It\'s a tie!';
+                    gameResultsRef.update({ gameResults: gameResults });
+
+                    setTimeout(resetChoice, 2000);
+                }
+            } else if (playerChoice === "scissors") {
+                if (otherPlayerChoice === "rock") {
+                    otherPlayerWins++;
+                    playerLosses++;
+                    database.ref('players/' + currentPlayer + '/losses').set(playerLosses);
+                    database.ref('players/' + otherPlayer + '/wins').set(otherPlayerWins);
+                    gameResults = otherName + ' wins!';
+                    gameResultsRef.update({ gameResults: gameResults });
+
+                    setTimeout(resetChoice, 2500);
+                } else if (otherPlayerChoice === "paper") {
+                    playerWins++;
+                    otherPlayerLosses++;
+                    database.ref('players/' + currentPlayer + '/wins').set(playerWins);
+                    database.ref('players/' + otherPlayer + '/losses').set(otherPlayerLosses);
+                    gameResults = playerName + ' wins!';
+                    gameResultsRef.update({ gameResults: gameResults });
+
+                    setTimeout(resetChoice, 2500);
+                } else if (otherPlayerChoice === "scissors") {
+                    gameResults = 'It\'s a tie!';
+                    gameResultsRef.update({ gameResults: gameResults });
+                    setTimeout(resetChoice, 2000);
+
+                }
+            }
+
+        });
+    }
+
+
+   
+
+});
